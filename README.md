@@ -55,4 +55,4 @@ Training and Documentation:
 Provide training sessions and user documentation to familiarize users with the system's features and functionalities.
 Offer ongoing support and resources to help users maximize their productivity.
 License
-This software is licensed under [INSERT LICENSE NAME]. Refer to the license file for details on permitted usage, redistribution, and modification.
+This software is licensed under MIT. Refer to the license file for details on permitted usage, redistribution, and modification.
