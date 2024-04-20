@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -105,12 +106,22 @@ public class LitigationCase {
 //    private String caseNotes;
 //    @Enumerated(EnumType.STRING)
 //    private CaseStatus caseStatus;
-    @PrePersist
-    public void generateCaseReferenceNumber() {
-        String loanTypePrefix = loanType.substring(0, Math.min(2, loanType.length())).toUpperCase();
-        String cifIdDigits = String.format("%02d", cifId % 100);
-        String loanAccountDigits = String.format("%02d", loanAccountNumber % 100);
+@PrePersist
+public void generateCaseReferenceNumber() {
+    // Use Optional to safely handle potential null values
+    String loanTypePrefix = Optional.ofNullable(loanType)
+            .map(lt -> lt.substring(0, Math.min(2, lt.length())).toUpperCase())
+            .orElse(""); // Default value if loanType is null
 
-        caseReferenceNumber = loanTypePrefix + cifIdDigits + loanAccountDigits;
-    }
+    String cifIdDigits = Optional.ofNullable(cifId)
+            .map(id -> String.format("%02d", id % 100))
+            .orElse("00"); // Default value if cifId is null
+
+    String loanAccountDigits = Optional.ofNullable(loanAccountNumber)
+            .map(num -> String.format("%02d", num % 100))
+            .orElse("00"); // Default value if loanAccountNumber is null
+
+    // Combine the parts to form the case reference number
+    caseReferenceNumber = loanTypePrefix + cifIdDigits + loanAccountDigits;
+}
 }

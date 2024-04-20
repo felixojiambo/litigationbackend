@@ -27,7 +27,7 @@ spring:
     name: authentication
   rabbitmq:
     host: localhost
-    port: 5673
+    port: 5672
     username: felix
     password: 56725672
   cloud:

@@ -18,3 +18,5 @@ public class ClientManagementMessageProducer {
         rabbitTemplate.convertAndSend("newCaseQueue", clientManagementDTO);
     }
 }
+
+
