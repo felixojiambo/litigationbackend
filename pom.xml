@@ -19,7 +19,8 @@
 		<module>litigation</module>
 		<module>serviceregistry</module>
 		<module>config</module>
-	</modules>
+        <module>apigateway</module>
+    </modules>
 	<properties>
 		<java.version>21</java.version>
 
