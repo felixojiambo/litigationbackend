@@ -61,15 +61,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/v1/auth/signin/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/v1/auth/refreshtoken/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/v1/auth/otp/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/v1/auth/reset-password/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/v1/auth/forgot-password/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .anyRequest().permitAll();
+                .authorizeRequests()
+                // Secure the litigation application's routes
+                .mvcMatchers("/litigation/**").authenticated()
+                // Other existing configurations
+                .mvcMatchers("/api/v1/auth/signin/**").permitAll()
+                .mvcMatchers("/api/v1/auth/refreshtoken/**").permitAll()
+                .mvcMatchers("/api/v1/auth/otp/**").permitAll()
+                .mvcMatchers("/api/v1/auth/reset-password/**").permitAll()
+                .mvcMatchers("/api/v1/auth/forgot-password/**").permitAll()
+                .mvcMatchers("/api/test/**").permitAll()
+                // Ensure that any other requests are authenticated
+                .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource()
     {

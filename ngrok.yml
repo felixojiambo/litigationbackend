@@ -1,0 +1,9 @@
+version: 2
+authtoken: 2cg39aWo084IzJUs0ZrsLl3dFci_AwjK7sL4Nn2c6x5UKJ2t
+tunnels:
+  first-app:
+    addr: 7800
+    proto: http
+  second-app:
+    addr: 9090
+    proto: http
