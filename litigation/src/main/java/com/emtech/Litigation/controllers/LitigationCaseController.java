@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/litigation")
-@CrossOrigin()
+//@CrossOrigin()
 public class LitigationCaseController {
 
     private final LitigationCaseService litigationCaseService;

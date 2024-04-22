@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -30,9 +31,16 @@ public class LitigationCaseServiceImpl implements LitigationCaseService {
     @Autowired
     public LitigationCaseServiceImpl(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
-        WebClient webClient = WebClient.create("http://127.0.0.1:7800");
-    }
+        //WebClient webClient = WebClient.create("http://127.0.0.1:7800");
+        WebClient webClient = WebClient.create("https://c365-102-210-244-74.ngrok-free.app");
 
+    }
+//    public Mono<String> fetchDataFromExternalService() {
+//        return webClient.get()
+//                .uri("/your-endpoint") // Replace with your actual endpoint
+//                .retrieve()
+//                .bodyToMono(String.class);
+//    }
     @Override
     public void processClientData(ClientManagementDTO clientManagementDTO) {
         if (clientManagementDTO == null) {

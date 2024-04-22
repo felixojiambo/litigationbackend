@@ -1,4 +1,5 @@
 package com.LDLS.Litigation.Project.Authentication.Security;
+
 import com.LDLS.Litigation.Project.Authentication.Security.Jwt.AuthEntryPointJwt;
 import com.LDLS.Litigation.Project.Authentication.Security.Jwt.AuthTokenFilter;
 import com.LDLS.Litigation.Project.Authentication.Security.Services.UserDetailsServiceImpl;
@@ -22,9 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true)
-
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${users.app.client.origin}")
     private String origin;
@@ -61,29 +60,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                // Secure the litigation application's routes
-                .mvcMatchers("/litigation/**").authenticated()
-                // Other existing configurations
-                .mvcMatchers("/api/v1/auth/signin/**").permitAll()
-                .mvcMatchers("/api/v1/auth/refreshtoken/**").permitAll()
-                .mvcMatchers("/api/v1/auth/otp/**").permitAll()
-                .mvcMatchers("/api/v1/auth/reset-password/**").permitAll()
-                .mvcMatchers("/api/v1/auth/forgot-password/**").permitAll()
-                .mvcMatchers("/api/test/**").permitAll()
-                // Ensure that any other requests are authenticated
-                .anyRequest().authenticated();
+                .authorizeRequests().antMatchers("/api/v1/auth/signin/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/v1/auth/refreshtoken/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/v1/auth/otp/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/v1/auth/reset-password/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/v1/auth/forgot-password/**").permitAll()
+                .antMatchers("/api/test/**").permitAll()
+                .anyRequest().permitAll();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(false);
-        config.addAllowedOrigin(origin);
-        //config.addAllowedOrigin(client_origin_ip);
-        config.addAllowedOrigin("*");
+        //config.addAllowedOrigin("https://4415-102-210-244-74.ngrok-free.app"); // Explicitly allow ngrok URL
+        config.addAllowedOrigin(origin); // Allow the configured origin
+        config.addAllowedOrigin("*"); // Allow all origins for testing purposes
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
