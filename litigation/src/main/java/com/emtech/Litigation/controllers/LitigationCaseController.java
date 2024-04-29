@@ -20,7 +20,11 @@ public class LitigationCaseController {
     public LitigationCaseController(LitigationCaseService litigationCaseService) {
         this.litigationCaseService = litigationCaseService;
     }
-
+    @GetMapping("/count")
+    public ResponseEntity<Long> getTotalCountOfLitigationCases() {
+        long count = litigationCaseService.countAllLitigationCases();
+        return ResponseEntity.ok(count);
+    }
     @PostMapping("/processClientData")
     public ResponseEntity<Void> processClientData(@RequestBody ClientManagementDTO clientManagementDTO) {
         try {
