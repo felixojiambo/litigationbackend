@@ -60,12 +60,22 @@ public class LitigationCaseController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ClientManagementDTO>> getAllLitigationCases() {
+        logger.info("Received GET request for all litigation cases");
         List<ClientManagementDTO> litigationCases = litigationCaseService.getAllLitigationCases();
+        logger.info("Sending response with {} litigation cases", litigationCases.size());
         return ResponseEntity.ok(litigationCases);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<ClientManagementDTO> getLitigationCaseById(@PathVariable Long id) {
+        logger.info("Received GET request for litigation case with ID: {}", id);
         ClientManagementDTO litigationCaseDTO = litigationCaseService.getLitigationCaseById(id);
+        if (litigationCaseDTO != null) {
+            logger.info("Sending response with litigation case details for ID: {}", id);
+        } else {
+            logger.info("No litigation case found for ID: {}", id);
+        }
         return ResponseEntity.ok(litigationCaseDTO);
     }
+
 }
