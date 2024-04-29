@@ -2,6 +2,8 @@ package com.emtech.Litigation.controllers;
 
 import com.emtech.Litigation.dtos.ClientManagementDTO;
 import com.emtech.Litigation.services.LitigationCaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,7 @@ import java.util.List;
 public class LitigationCaseController {
 
     private final LitigationCaseService litigationCaseService;
-
+    private static final Logger logger = LoggerFactory.getLogger(LitigationCaseController.class);
     @Autowired
     public LitigationCaseController(LitigationCaseService litigationCaseService) {
         this.litigationCaseService = litigationCaseService;
