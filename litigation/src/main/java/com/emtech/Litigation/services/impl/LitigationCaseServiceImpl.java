@@ -81,7 +81,10 @@ public class LitigationCaseServiceImpl implements LitigationCaseService {
             throw new RuntimeException("Failed to process client data", e);
         }
     }
-
+    @Override
+    public long countAppealedCases() {
+        return litigationCaseRepository.countByStatus("Appealed");
+    }
     private void compareFieldsAndLog(ClientManagementDTO source, LitigationCase target) {
         List<String> unmappedFields = new ArrayList<>();
 

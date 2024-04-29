@@ -25,6 +25,11 @@ public class LitigationCaseController {
         long count = litigationCaseService.countAllLitigationCases();
         return ResponseEntity.ok(count);
     }
+    @GetMapping("/appealed/count")
+    public ResponseEntity<Long> getTotalCountOfAppealedCases() {
+        long count = litigationCaseService.countAppealedCases();
+        return ResponseEntity.ok(count);
+    }
     @PostMapping("/{caseId}/appeal")
     public ResponseEntity<Void> addToAppealedStatus(@PathVariable Long caseId) {
         litigationCaseService.addToAppealedStatus(caseId);

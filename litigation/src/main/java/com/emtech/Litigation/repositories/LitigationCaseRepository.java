@@ -25,4 +25,6 @@ public interface LitigationCaseRepository extends JpaRepository<LitigationCase, 
     // Example: Custom query method using @Query annotation
     @Query("SELECT lc FROM LitigationCase lc WHERE lc.status = ?1 AND lc.lastUpdated > ?2")
     List<LitigationCase> findByStatusAndLastUpdatedAfter(String status, Date lastUpdated);
+
+    long countByStatus(String status);
 }
