@@ -15,6 +15,11 @@ public class LitigationCaseADRController {
         this.litigationCaseADRService = litigationCaseADRService;
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> getTotalCountOfCasesUnderADR() {
+        long count = litigationCaseADRService.countCasesUnderADR();
+        return ResponseEntity.ok(count);
+    }
     @PostMapping("/{caseId}/adr")
     public ResponseEntity<Void> initiateADR(@PathVariable Long caseId) {
         litigationCaseADRService.initiateADRForLitigationCase(caseId);

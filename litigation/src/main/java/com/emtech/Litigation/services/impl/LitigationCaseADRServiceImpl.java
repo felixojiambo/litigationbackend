@@ -17,7 +17,9 @@ public class LitigationCaseADRServiceImpl implements LitigationCaseADRService {
     public LitigationCaseADRServiceImpl(LitigationCaseRepository litigationCaseRepository) {
         this.litigationCaseRepository = litigationCaseRepository;
     }
-
+    public long countCasesUnderADR() {
+        return litigationCaseRepository.countByStatus("Under ADR");
+    }
     @Override
     public void initiateADRForLitigationCase(Long caseId) {
         Optional<LitigationCase> litigationCaseOptional = litigationCaseRepository.findById(caseId);
