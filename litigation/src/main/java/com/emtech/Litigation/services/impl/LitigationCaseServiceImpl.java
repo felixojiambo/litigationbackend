@@ -85,6 +85,23 @@ public class LitigationCaseServiceImpl implements LitigationCaseService {
     public long countAppealedCases() {
         return litigationCaseRepository.countByStatus("Appealed");
     }
+    @Override
+    public void closeLitigationCase(Long caseId) {
+        Optional<LitigationCase> litigationCaseOptional = litigationCaseRepository.findById(caseId);
+        if (litigationCaseOptional.isPresent()) {
+            LitigationCase litigationCase = litigationCaseOptional.get();
+            litigationCase.setStatus("Closed");
+            litigationCaseRepository.save(litigationCase);
+            System.out.println("Case closed. Case ID: " + caseId);
+        } else {
+            throw new IllegalArgumentException("Litigation case not found with ID: " + caseId);
+        }
+    }
+
+    @Override
+    public long countClosedCases() {
+        return litigationCaseRepository.countByStatus("Closed");
+    }
     private void compareFieldsAndLog(ClientManagementDTO source, LitigationCase target) {
         List<String> unmappedFields = new ArrayList<>();
 

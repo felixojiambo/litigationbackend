@@ -25,6 +25,17 @@ public class LitigationCaseController {
         long count = litigationCaseService.countAllLitigationCases();
         return ResponseEntity.ok(count);
     }
+    @PostMapping("/{caseId}/close")
+    public ResponseEntity<Void> closeLitigationCase(@PathVariable Long caseId) {
+        litigationCaseService.closeLitigationCase(caseId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/closed/count")
+    public ResponseEntity<Long> getTotalCountOfClosedCases() {
+        long count = litigationCaseService.countClosedCases();
+        return ResponseEntity.ok(count);
+    }
     @GetMapping("/appealed/count")
     public ResponseEntity<Long> getTotalCountOfAppealedCases() {
         long count = litigationCaseService.countAppealedCases();

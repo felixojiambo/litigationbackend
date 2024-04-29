@@ -14,4 +14,6 @@ public interface LitigationCaseService {
     ClientManagementDTO getLitigationCaseById(Long id);
     void addToAppealedStatus(Long caseId);
     long countAppealedCases();
+    void closeLitigationCase(Long caseId);
+    long countClosedCases();
 }
