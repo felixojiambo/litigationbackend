@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -41,6 +40,12 @@ public class LitigationCaseServiceImpl implements LitigationCaseService {
 //                .retrieve()
 //                .bodyToMono(String.class);
 //    }
+
+    @Override
+    public long countAllLitigationCases() {
+        return litigationCaseRepository.count();
+    }
+
     @Override
     public void processClientData(ClientManagementDTO clientManagementDTO) {
         if (clientManagementDTO == null) {

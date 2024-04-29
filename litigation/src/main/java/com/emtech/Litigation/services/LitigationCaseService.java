@@ -5,6 +5,8 @@ import com.emtech.Litigation.dtos.ClientManagementDTO;
 import java.util.List;
 @Service
 public interface LitigationCaseService {
+    long countAllLitigationCases();
+
     void processClientData(ClientManagementDTO clientManagementDTO);
 
     List<ClientManagementDTO> getAllLitigationCases();
