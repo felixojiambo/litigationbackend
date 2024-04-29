@@ -45,7 +45,19 @@ public class LitigationCaseServiceImpl implements LitigationCaseService {
     public long countAllLitigationCases() {
         return litigationCaseRepository.count();
     }
-
+    @Override
+    public void addToAppealedStatus(Long caseId) {
+        Optional<LitigationCase> litigationCaseOptional = litigationCaseRepository.findById(caseId);
+        if (litigationCaseOptional.isPresent()) {
+            LitigationCase litigationCase = litigationCaseOptional.get();
+            litigationCase.setStatus("Appealed");
+            litigationCaseRepository.save(litigationCase);
+            // Additional logic to initiate the appeal process
+            System.out.println("Case marked as appealed. Case ID: " + caseId);
+        } else {
+            throw new IllegalArgumentException("Litigation case not found with ID: " + caseId);
+        }
+    }
     @Override
     public void processClientData(ClientManagementDTO clientManagementDTO) {
         if (clientManagementDTO == null) {
